@@ -9,6 +9,7 @@ import {
   projectGitWidget,
   costWidget,
   contextWidget,
+  codeChangesWidget,
   separator,
 } from "./widgets.ts";
 
@@ -50,8 +51,16 @@ if (args.includes("--version") || args.includes("-v")) {
 try {
   const data = await readStdin();
 
-  // Line 1: Model + Context + Cost
-  const line1 = modelWidget(data) + " " + contextWidget(data) + separator() + costWidget(data);
+  // Line 1: Model + Context + Cost + Code Changes
+  const changes = codeChangesWidget(data);
+  const line1Parts = [
+    modelWidget(data) + " " + contextWidget(data),
+    costWidget(data),
+  ];
+  if (changes) {
+    line1Parts.push(changes);
+  }
+  const line1 = line1Parts.join(separator());
 
   // Line 2: Project + Git
   const line2 = projectGitWidget(data);

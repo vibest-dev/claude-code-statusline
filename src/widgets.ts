@@ -67,30 +67,40 @@ export function gitWidget(data: StatusLineInput): string {
 }
 
 /**
- * Project widget with git branch and changes
+ * Project widget with git branch
  */
 export function projectGitWidget(data: StatusLineInput): string {
   const dir = shortPath(data.workspace.current_dir);
   const branch = getGitBranch(data.cwd);
-  const added = data.cost.total_lines_added;
-  const removed = data.cost.total_lines_removed;
 
   let result = blue(dir);
 
   if (branch) {
-    const parts: string[] = [magenta(truncate(branch, 20))];
-
-    if (added > 0) {
-      parts.push(green(`+${added}`));
-    }
-    if (removed > 0) {
-      parts.push(red(`-${removed}`));
-    }
-
-    result += " (" + parts.join(" ") + ")";
+    result += " (" + magenta(truncate(branch, 20)) + ")";
   }
 
   return result;
+}
+
+/**
+ * Code changes widget (lines added/removed by Claude)
+ */
+export function codeChangesWidget(data: StatusLineInput): string {
+  const added = data.cost.total_lines_added;
+  const removed = data.cost.total_lines_removed;
+
+  if (added === 0 && removed === 0) {
+    return "";
+  }
+
+  const parts: string[] = [];
+  if (added > 0) {
+    parts.push(green(`+${added}`));
+  }
+  if (removed > 0) {
+    parts.push(red(`-${removed}`));
+  }
+  return parts.join(" ");
 }
 
 /**
