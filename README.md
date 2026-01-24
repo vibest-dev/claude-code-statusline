@@ -22,27 +22,16 @@ Add to `~/.claude/settings.json`:
 {
   "statusLine": {
     "type": "command",
-    "command": "@vibest/claude-code-statusline --theme default"
+    "command": "claude-code-statusline"
   }
 }
 ```
 
-## Themes
+## Output
 
-| Theme | Description |
-|-------|-------------|
-| `default` | Model, directory, git, cost, context usage |
-| `minimal` | Model, directory, cost |
-| `full` | All information including tokens and duration |
-| `dev` | Focus on code changes (lines added/removed) |
-| `cost` | Focus on cost and token usage |
-
-```bash
-# List available themes
-@vibest/claude-code-statusline --list-themes
-
-# Use a specific theme
-@vibest/claude-code-statusline --theme full
+```
+[Opus 4.5] █████░░░░░ 45% ∣ $0.52
+~/Code/my-project (main +123 -45)
 ```
 
 ## Programmatic Usage
@@ -50,37 +39,25 @@ Add to `~/.claude/settings.json`:
 ```typescript
 import {
   readStdin,
-  getTheme,
   modelWidget,
   costWidget,
-  colorize,
+  contextWidget,
+  projectGitWidget,
 } from "@vibest/claude-code-statusline";
 
-// Use built-in themes
 const data = await readStdin();
-const theme = getTheme("default");
-console.log(theme.render(data));
-
-// Or build your own
-const output = [
-  modelWidget(data),
-  costWidget(data),
-].join(" | ");
-console.log(output);
+console.log(modelWidget(data));
+console.log(projectGitWidget(data));
 ```
 
 ## Available Widgets
 
-- `modelWidget` - Model name (e.g., `[Opus 4.5]`)
-- `directoryWidget` - Current directory
-- `projectWidget` - Project/current directory
-- `gitWidget` - Git branch name
+- `modelWidget` - Model name with brackets (e.g., `[Opus 4.5]`)
+- `contextWidget` - Context window progress bar and percentage
+- `projectGitWidget` - Project path with git branch and changes
 - `costWidget` - Total cost in USD
-- `contextWidget` - Context window usage %
-- `tokensWidget` - Input/output token counts
-- `linesWidget` - Lines added/removed
-- `durationWidget` - Session duration
-- `versionWidget` - Claude Code version
+- `directoryWidget` - Current directory
+- `gitWidget` - Git branch name
 
 ## License
 
