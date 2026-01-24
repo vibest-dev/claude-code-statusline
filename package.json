@@ -1,6 +1,6 @@
 {
   "name": "@vibest/claude-code-statusline",
-  "version": "0.1.0",
+  "version": "0.0.0",
   "description": "A customizable statusline for Claude Code CLI",
   "type": "module",
   "main": "./dist/index.js",
