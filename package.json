@@ -1,0 +1,57 @@
+{
+  "name": "@vibest/claude-code-statusline",
+  "version": "0.1.0",
+  "description": "A customizable statusline for Claude Code CLI",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "bin": {
+    "claude-code-statusline": "./dist/cli.js"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "bun run build:js && bun run build:types",
+    "build:js": "bun build ./src/cli.ts --outdir ./dist --target bun && bun build ./src/index.ts --outdir ./dist --target bun",
+    "build:types": "tsc --emitDeclarationOnly --declaration --outDir dist",
+    "dev": "bun --watch src/cli.ts",
+    "test": "bun test",
+    "prepublishOnly": "bun run build",
+    "release": "bumpp"
+  },
+  "keywords": [
+    "claude",
+    "claude-code",
+    "statusline",
+    "cli",
+    "terminal",
+    "anthropic"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/bun": "latest",
+    "bumpp": "^10.4.0"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "engines": {
+    "bun": ">=1.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vibest-dev/claude-code-statusline"
+  },
+  "dependencies": {
+    "picocolors": "^1.1.1"
+  }
+}
