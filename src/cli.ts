@@ -10,6 +10,7 @@ import {
   costWidget,
   contextWidget,
   codeChangesWidget,
+  sshWidget,
   separator,
 } from "./widgets.ts";
 
@@ -62,8 +63,14 @@ try {
   }
   const line1 = line1Parts.join(separator());
 
-  // Line 2: Project + Git
-  const line2 = projectGitWidget(data);
+  // Line 2: SSH(hostname) + Project + Git
+  const ssh = sshWidget();
+  let line2 = "";
+  if (ssh) {
+    line2 = ssh + " " + projectGitWidget(data);
+  } else {
+    line2 = projectGitWidget(data);
+  }
 
   console.log(line1 + "\n" + line2);
 } catch {
