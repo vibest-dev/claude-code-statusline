@@ -202,26 +202,21 @@ export function powerlineSeparator(): string {
 }
 
 /**
- * SSH connection indicator with hostname
- * Shows "SSH(hostname)" when connected via SSH, empty otherwise
+ * Remote hostname indicator
+ * Shows the hostname when connected via SSH, empty otherwise
  */
-export function sshWidget(): string {
-  // Check for SSH connection via environment variables
+export function hostnameWidget(): string {
   const isSSH = process.env.SSH_CONNECTION || process.env.SSH_CLIENT || process.env.SSH_TTY;
 
   if (!isSSH) {
     return "";
   }
 
-  // Get hostname
   try {
     const hostname = require("os").hostname();
-    // Remove domain suffix if present (e.g., "machine.local" -> "machine")
     const shortHostname = hostname.split(".")[0];
-    // Show SSH(hostname) in yellow
-    return yellow(`SSH(${shortHostname})`);
+    return bold(magenta(shortHostname));
   } catch {
-    // Fallback to just "SSH" if hostname fails
-    return yellow("SSH");
+    return "";
   }
 }

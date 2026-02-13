@@ -10,7 +10,7 @@ import {
   costWidget,
   contextWidget,
   codeChangesWidget,
-  sshWidget,
+  hostnameWidget,
   separator,
 } from "./widgets.ts";
 
@@ -63,11 +63,11 @@ try {
   }
   const line1 = line1Parts.join(separator());
 
-  // Line 2: SSH(hostname) + Project + Git
-  const ssh = sshWidget();
+  // Line 2: Hostname (if SSH) + Project + Git
+  const hostname = hostnameWidget();
   let line2 = "";
-  if (ssh) {
-    line2 = ssh + " " + projectGitWidget(data);
+  if (hostname) {
+    line2 = hostname + " " + projectGitWidget(data);
   } else {
     line2 = projectGitWidget(data);
   }
