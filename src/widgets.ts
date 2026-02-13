@@ -200,3 +200,28 @@ export function separator(): string {
 export function powerlineSeparator(): string {
   return gray("");
 }
+
+/**
+ * SSH connection indicator with hostname
+ * Shows "SSH(hostname)" when connected via SSH, empty otherwise
+ */
+export function sshWidget(): string {
+  // Check for SSH connection via environment variables
+  const isSSH = process.env.SSH_CONNECTION || process.env.SSH_CLIENT || process.env.SSH_TTY;
+
+  if (!isSSH) {
+    return "";
+  }
+
+  // Get hostname
+  try {
+    const hostname = require("os").hostname();
+    // Remove domain suffix if present (e.g., "machine.local" -> "machine")
+    const shortHostname = hostname.split(".")[0];
+    // Show SSH(hostname) in yellow
+    return yellow(`SSH(${shortHostname})`);
+  } catch {
+    // Fallback to just "SSH" if hostname fails
+    return yellow("SSH");
+  }
+}
