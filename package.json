@@ -1,13 +1,13 @@
 {
-  "name": "@vibest/claude-code-statusline",
-  "version": "0.0.3",
+  "name": "@vibest/ccline",
+  "version": "0.0.4",
   "description": "A customizable statusline for Claude Code CLI",
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "bin": {
-    "claude-code-statusline": "./dist/cli.js"
+    "ccline": "./dist/cli.js"
   },
   "exports": {
     ".": {
